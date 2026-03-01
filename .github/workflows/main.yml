@@ -1,8 +1,9 @@
-name: My First Workflow
+name: C Build and Run
 
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -12,5 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Print Hello
-        run: echo "Hello GitHub Actions!"
+      - name: Install GCC
+        run: sudo apt update && sudo apt install -y build-essential
+
+      - name: Compile C Program
+        run: gcc main.c -o main
+
+      - name: Run Program
+        run: ./main
